@@ -9,6 +9,10 @@
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://cra.link/PWA
+import './initializeFirebase';
+import { getMessaging, getToken } from "firebase/messaging";
+
+const messaging = getMessaging();
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
@@ -56,6 +60,24 @@ function registerValidSW(swUrl, config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+      // 登録が成功したのでトークンの取得を行う
+      getToken(messaging, {
+        // ウェブプッシュ証明書のキー（以下の情報はコードの外に出す？？）
+        vapidKey: 'xxx',
+        //サービスワーカを指定（省略するとルートディレクトリのfirebase-messaging-sw.jsを登録する）
+        serviceWorkerRegistration: registration
+      })
+        .then(currentToken => {
+          if (currentToken) {
+            console.debug('token is ' + currentToken)
+          } else {
+            //
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {

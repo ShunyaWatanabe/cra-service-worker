@@ -70,3 +70,11 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+self.addEventListener('push', function(e) {
+  var options = {
+    body: 'This notification was generated from a push!',
+  };
+  e.waitUntil(
+    self.registration.showNotification('Hello world!', options)
+  );
+});

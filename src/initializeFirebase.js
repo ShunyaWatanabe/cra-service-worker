@@ -1,0 +1,12 @@
+import { initializeApp } from "firebase/app";
+
+initializeApp({
+  apiKey: "xxx",
+  authDomain: "xxx",
+  databaseURL: "xxx",
+  projectId: "xxx",
+  storageBucket: "xxx",
+  messagingSenderId: "xxx",
+  appId: "xxx",
+  measurementId: "xxx",
+});
